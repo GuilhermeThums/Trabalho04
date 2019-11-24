@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     EditText login;
@@ -24,7 +25,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void abrirTelaPrincipal(View v){
-        Intent intent = new Intent(this, TelaPrincipal.class);
-        startActivity(intent);
+        String loginTexto = login.getText().toString();
+        String senhaTexto = senha.getText().toString();
+
+        if(loginTexto.equals("a")&& senhaTexto.equals("a")){
+            Intent intent = new Intent(this, TelaPrincipal.class);
+            startActivity(intent);
+        } else
+            Toast.makeText(this, "Login ou senha incorretos!", Toast.LENGTH_SHORT).show();
+
     }
 }

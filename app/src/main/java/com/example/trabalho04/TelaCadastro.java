@@ -7,13 +7,15 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 public class TelaCadastro extends AppCompatActivity {
-    EditText nomeCadastro;
-    EditText emailCadastro;
-    EditText senhaCadastro;
-    EditText confirmarSenhaCadastro;
+    private EditText nomeCadastro;
+    private EditText emailCadastro;
+    private EditText senhaCadastro;
+    private EditText confirmarSenhaCadastro;
+    private RadioGroup radioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,16 +39,21 @@ public class TelaCadastro extends AppCompatActivity {
         String senha = senhaCadastro.getText().toString();
         String confirmarSenha = confirmarSenhaCadastro.getText().toString();
 
-        if(TextUtils.isEmpty(nome.trim())){
+
+
+        if(TextUtils.isEmpty(nome.trim()))
             Toast.makeText(this, "Campo nome inválido!", Toast.LENGTH_SHORT).show();
-        } else if(TextUtils.isEmpty(email.trim())){
+        else if(TextUtils.isEmpty(email.trim()))
             Toast.makeText(this, "Campo e-mail inválido!", Toast.LENGTH_SHORT).show();
+        else if (TextUtils.isEmpty(senha))
+            Toast.makeText(this, "Campo senha inválido!", Toast.LENGTH_SHORT).show();
+        else if(TextUtils.isEmpty(confirmarSenha))
+            Toast.makeText(this, "Campo confirmar senha inválido!", Toast.LENGTH_SHORT).show();
+        else if (!(senha.equals(confirmarSenha)))
+            Toast.makeText(this, "Senhas não coincidem!", Toast.LENGTH_SHORT).show();
+        else {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
-
-
-
-
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
     }
 }

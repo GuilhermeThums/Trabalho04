@@ -12,27 +12,17 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="72dp"
         android:ems="10"
+        android:importantForAutofill="no"
         android:inputType="textEmailAddress"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvLogin"
-        android:importantForAutofill="no" />
-
-    <TextView
-        android:id="@+id/txvSenha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/senha"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/txvLogin" />
 
     <TextView
         android:id="@+id/txvLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="72dp"
-        android:layout_marginTop="191dp"
+        android:layout_marginTop="164dp"
         android:text="@string/login"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -43,40 +33,51 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="72dp"
         android:ems="10"
+        android:importantForAutofill="no"
         android:inputType="textPassword"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvSenha"
-        android:importantForAutofill="no" />
-
-    <TextView
-        android:id="@+id/txvNomePetShop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/prime_dog"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnEntrar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="28dp"
-        android:onClick="abrirTelaPrincipal"
-        android:text="@string/entrar"
-        app:layout_constraintStart_toEndOf="@+id/btnCadastro"
-        app:layout_constraintTop_toBottomOf="@+id/edtSenha" />
+        app:layout_constraintTop_toBottomOf="@+id/txvSenha" />
 
     <Button
         android:id="@+id/btnCadastro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="72dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:onClick="abrirTelaCadastro"
         android:text="@string/cadastrar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtSenha" />
+
+    <Button
+        android:id="@+id/btnEntrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:onClick="abrirTelaPrincipal"
+        android:text="@string/entrar"
+        app:layout_constraintStart_toEndOf="@+id/btnCadastro"
+        app:layout_constraintTop_toBottomOf="@+id/edtSenha" />
+
+    <TextView
+        android:id="@+id/txvSenha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/senha"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtLogin" />
+
+    <TextView
+        android:id="@+id/txvNomePetShop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/prime_dog"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
