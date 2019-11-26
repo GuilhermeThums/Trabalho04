@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void abrirTelaCadastro(View v){
-        Intent intent = new Intent(this, TelaCadastro.class);
+        Intent intent = new Intent(this, TelaCadastroCliente.class);
         startActivity(intent);
     }
     public void abrirTelaPrincipal(View v){

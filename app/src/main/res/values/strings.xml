@@ -11,4 +11,21 @@
     <string name="feminino">Feminino</string>
     <string name="masculino">Masculino</string>
     <string name="sexo">Sexo</string>
+    <string name="dica_senha">Deve possuir entre 6 a 8 caracteres contendo caracteres especiais (!@#%$*)</string>
+    <string name="esp_cie">Espécie</string>
+    <string name="peso">Peso</string>
+    <string name="cor">Cor</string>
+    <string name="data_de_nascimento">Data de nascimento</string>
+    <string name="voltar">Voltar</string>
+
+    <string-array name="arraySexo">
+        <item>Masculino</item>
+        <item>Feminino</item>
+    </string-array>
+
+    <string-array name="arrayEspecie">
+        <item>Cão</item>
+        <item>Gato</item>
+    </string-array>
+
 </resources>

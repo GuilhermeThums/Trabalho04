@@ -4,11 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TelaCadastro">
+    tools:context=".TelaCadastroCliente">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +24,7 @@
             android:text="@string/nome" />
 
         <EditText
-            android:id="@+id/edtNomeCadastro"
+            android:id="@+id/edtNomeCliente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -36,7 +39,7 @@
             android:text="@string/e_mail" />
 
         <EditText
-            android:id="@+id/edtEmailCadastro"
+            android:id="@+id/edtEmailCliente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -51,7 +54,7 @@
             android:text="@string/senha" />
 
         <EditText
-            android:id="@+id/edtSenhaCadastro"
+            android:id="@+id/edtSenhaCliente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -60,13 +63,20 @@
             android:inputType="textPersonName" />
 
         <TextView
+            android:id="@+id/txvDicaSenha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dica_senha"
+            android:textSize="10sp" />
+
+        <TextView
             android:id="@+id/txvConfirmarSenhaCadastro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/confirmar_senha" />
 
         <EditText
-            android:id="@+id/edtConfirmarSenhaCadastro"
+            android:id="@+id/edtConfirmarSenhaCliente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -75,33 +85,20 @@
             android:inputType="textPersonName" />
 
         <TextView
-            android:id="@+id/txvSexo"
+            android:id="@+id/txvSexoCliente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/sexo" />
 
-        <RadioGroup
+        <Spinner
+            android:id="@+id/spnSexoCliente"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <RadioButton
-                android:id="@+id/rdbMasculino"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="@string/masculino" />
-
-            <RadioButton
-                android:id="@+id/rdbFeminino"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/feminino" />
-        </RadioGroup>
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnCadastrar"
+        android:id="@+id/btnCadastrarAnimal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TelaCadastroAnimal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/txvNomeAnimal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/nome" />
+
+        <EditText
+            android:id="@+id/edtNomeAnimal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/nome"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/txvEspecieAnimal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/esp_cie" />
+
+        <Spinner
+            android:id="@+id/spnEspecieAnimal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/txvSexoAnimal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sexo" />
+
+        <Spinner
+            android:id="@+id/spnSexoAnimal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/txvPesoAnimal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/peso" />
+
+        <EditText
+            android:id="@+id/edtPesoAnimal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/txvCorAnimal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cor" />
+
+        <EditText
+            android:id="@+id/edtCorAnimal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/txvDataNascimentoAnimal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/data_de_nascimento" />
+
+        <EditText
+            android:id="@+id/edtDataNascimentoAnimal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="date" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnCadastrarAnimal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/cadastrar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btnVoltar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="botaoVoltar"
+        android:text="@string/voltar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
