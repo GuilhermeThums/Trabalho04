@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         String loginTexto = login.getText().toString();
         String senhaTexto = senha.getText().toString();
 
-        if(loginTexto.equals("a")&& senhaTexto.equals("a")){
+        if(loginTexto.equals("admin")&& senhaTexto.equals("admin")){
             Intent intent = new Intent(this, TelaPrincipal.class);
             startActivity(intent);
         } else

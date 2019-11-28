@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -16,8 +18,22 @@ public class TelaCadastroAnimal extends AppCompatActivity {
     private EditText corCadastroAnimal;
     private EditText dataNascimentoAnimal;
 
+    private CheckBox vacina1;
+    private CheckBox vacina2;
+    private CheckBox vacina3;
+    private CheckBox vacina4;
+
     String sexoDoAnimalTexto;
     String especieDoAnimalTexto;
+
+    String vacinaV8 = "Vacina v8";
+    String vacinaV10 = "Vacina v10";
+    String vacinaV12 = "Vacina v12";
+    String vacinaRabica = "Vacina anti raiva";
+    String vacinaV3 = "Vacina v3";
+    String vacinaV4 = "Vacina v4";
+    String vacinaV5 = "Vacina v5";
+
 
 
     @Override
@@ -30,6 +46,11 @@ public class TelaCadastroAnimal extends AppCompatActivity {
         corCadastroAnimal = findViewById(R.id.edtCorAnimal);
         dataNascimentoAnimal = findViewById(R.id.edtDataNascimentoAnimal);
 
+        vacina1 = findViewById(R.id.ckbVacina1);
+        vacina2 = findViewById(R.id.ckbVacina2);
+        vacina3 = findViewById(R.id.ckbVacina3);
+        vacina4 = findViewById(R.id.ckbVacina4);
+
         String[] sexoAnimal = getResources().getStringArray(R.array.arraySexo);
         Spinner spinnerSexoAnimal = findViewById(R.id.spnSexoAnimal);
         ArrayAdapter<String> sexoAnimalAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, sexoAnimal);
@@ -41,6 +62,57 @@ public class TelaCadastroAnimal extends AppCompatActivity {
         ArrayAdapter<String> especieAnimalAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, especieAnimal);
         spinnerEspecieAnimal.setAdapter(especieAnimalAdapter);
         especieDoAnimalTexto = spinnerEspecieAnimal.getSelectedItem().toString();
+
+        spinnerEspecieAnimal.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 0){
+                    vacina1.setText(vacinaV8);
+                    vacina2.setText(vacinaV10);
+                    vacina3.setText(vacinaV12);
+                    vacina4.setText(vacinaRabica);
+                    if(vacina1.isChecked())
+                        vacina1.toggle();
+                    if(vacina2.isChecked())
+                        vacina2.toggle();
+                    if(vacina3.isChecked())
+                        vacina3.toggle();
+                    if(vacina4.isChecked())
+                        vacina4.toggle();
+                } else if(position == 1){
+                    vacina1.setText(vacinaV3);
+                    vacina2.setText(vacinaV4);
+                    vacina3.setText(vacinaV5);
+                    vacina4.setText(vacinaRabica);
+                    if(vacina1.isChecked())
+                        vacina1.toggle();
+                    if(vacina2.isChecked())
+                        vacina2.toggle();
+                    if(vacina3.isChecked())
+                        vacina3.toggle();
+                    if(vacina4.isChecked())
+                        vacina4.toggle();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+//        if(especieDoAnimalTexto.equals("Cão")){
+//            vacina1.setText(vacinaV8);
+//            vacina2.setText(vacinaV10);
+//            vacina3.setText(vacinaV12);
+//            vacina4.setText(vacinaRabica);
+//        } else{
+//            vacina1.setText(vacinaV3);
+//            vacina2.setText(vacinaV4);
+//            vacina3.setText(vacinaV5);
+//            vacina4.setText(vacinaRabica);
+//        }
+
     }
 
     public void botaoCadastrar(View v){

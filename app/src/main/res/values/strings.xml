@@ -15,7 +15,7 @@
     <string name="esp_cie">Espécie</string>
     <string name="peso">Peso</string>
     <string name="cor">Cor</string>
-    <string name="data_de_nascimento">Data de nascimento</string>
+    <string name="data_de_nascimento">Data de nascimento (dd/mm/aaaa)</string>
     <string name="voltar">Voltar</string>
 
     <string-array name="arraySexo">
