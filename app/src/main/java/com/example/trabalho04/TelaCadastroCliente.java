@@ -31,7 +31,7 @@ public class TelaCadastroCliente extends AppCompatActivity {
         senhaCadastroCliente = findViewById(R.id.edtSenhaCliente);
         confirmarSenhaCadastroCliente = findViewById(R.id.edtConfirmarSenhaCliente);
 
-        String[] sexoCliente = getResources().getStringArray(R.array.arraySexo);
+        String[] sexoCliente = getResources().getStringArray(R.array.arraySexoHumano);
         Spinner spinnerSexoCliente = findViewById(R.id.spnSexoCliente);
         ArrayAdapter<String> sexoClienteAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, sexoCliente);
         spinnerSexoCliente.setAdapter(sexoClienteAdapter);

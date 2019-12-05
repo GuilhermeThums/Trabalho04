@@ -8,13 +8,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.JsonReader;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -22,15 +19,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-import javax.net.ssl.HttpsURLConnection;
-
 
 public class TelaPrincipal extends AppCompatActivity {
 
     private static final String URL = "http://10.0.2.2:8080/animal";
     final int duracao = Toast.LENGTH_LONG;
     ArrayList<Animal> Animals = new ArrayList<Animal>();
-    Spinner spinner;
+    Spinner spinnerAnimal;
 
     Integer valueID;
     String value;
@@ -38,12 +33,12 @@ public class TelaPrincipal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_principal);
-        this.listaAnimal();
-        spinner=(Spinner)findViewById(R.id.animalSpinner);
+//        this.listaAnimal();
+        spinnerAnimal=findViewById(R.id.spnAnimal);
 
         ArrayAdapter<Animal> spinnerArrayAdapter = new ArrayAdapter<Animal>(this, android.R.layout.simple_spinner_item, Animals);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
-        spinner.setAdapter(spinnerArrayAdapter);
+        spinnerAnimal.setAdapter(spinnerArrayAdapter);
 
     }
 
@@ -52,18 +47,21 @@ public class TelaPrincipal extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void clicar (View v){
+    public void editarAnimal (View v){
 
-//        String itemSelecionado = spinner.getSelectedItem().toString();
-        Animal animal = (Animal )spinner.getSelectedItem();
-        String itemSelecionado = Integer.toString( animal.getId());
-        TextView label = findViewById(R.id.textView);
-        label.setText((itemSelecionado));
+//        String itemSelecionado = spinnerAnimal.getSelectedItem().toString();
+//        Animal animal = (Animal )spinnerAnimal.getSelectedItem();
+//        itemSelecionado = Integer.toString( animal.getId());
+//        TextView label = findViewById(R.id.txvBemVindo);
+//        label.setText((itemSelecionado));
+
+        Intent intent = new Intent(this, TelaEditarAnimal.class);
+        startActivity(intent);
     }
 
 
     public void listaAnimal() {
-        final TextView exemplo = findViewById(R.id.textView);
+        final TextView exemplo = findViewById(R.id.txvBemVindo);
         final Context contexto = getApplicationContext();
 
 

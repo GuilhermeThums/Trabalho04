@@ -17,10 +17,22 @@
     <string name="cor">Cor</string>
     <string name="data_de_nascimento">Data de nascimento (dd/mm/aaaa)</string>
     <string name="voltar">Voltar</string>
+    <string name="salvar">Salvar</string>
+    <string name="editar_animal">Editar animal</string>
+    <string name="seus_animais">Seus animais:</string>
+    <string name="bem_vindo_a">Bem vindo(a)!</string>
+    <string name="cadastrar_animal">Cadastrar animal</string>
+    <string name="sair">Sair</string>
+    <string name="selecionar_data">Selecionar data</string>
 
-    <string-array name="arraySexo">
+    <string-array name="arraySexoHumano">
         <item>Masculino</item>
         <item>Feminino</item>
+    </string-array>
+
+    <string-array name="arraySexoAnimal">
+        <item>Macho</item>
+        <item>Fêmea</item>
     </string-array>
 
     <string-array name="arrayEspecie">

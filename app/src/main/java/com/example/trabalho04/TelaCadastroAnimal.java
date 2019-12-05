@@ -2,15 +2,20 @@ package com.example.trabalho04;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Calendar;
 
 public class TelaCadastroAnimal extends AppCompatActivity {
     private EditText nomeCadastroAnimal;
@@ -34,6 +39,9 @@ public class TelaCadastroAnimal extends AppCompatActivity {
     String vacinaV4 = "Vacina v4";
     String vacinaV5 = "Vacina v5";
 
+    private TextView dataTexto;
+
+
 
 
     @Override
@@ -51,7 +59,15 @@ public class TelaCadastroAnimal extends AppCompatActivity {
         vacina3 = findViewById(R.id.ckbVacina3);
         vacina4 = findViewById(R.id.ckbVacina4);
 
-        String[] sexoAnimal = getResources().getStringArray(R.array.arraySexo);
+        dataTexto = findViewById(R.id.edtDataNascimentoAnimal);
+        findViewById(R.id.btnSelecionarData).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        String[] sexoAnimal = getResources().getStringArray(R.array.arraySexoAnimal);
         Spinner spinnerSexoAnimal = findViewById(R.id.spnSexoAnimal);
         ArrayAdapter<String> sexoAnimalAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, sexoAnimal);
         spinnerSexoAnimal.setAdapter(sexoAnimalAdapter);
@@ -101,18 +117,6 @@ public class TelaCadastroAnimal extends AppCompatActivity {
             }
         });
 
-//        if(especieDoAnimalTexto.equals("Cão")){
-//            vacina1.setText(vacinaV8);
-//            vacina2.setText(vacinaV10);
-//            vacina3.setText(vacinaV12);
-//            vacina4.setText(vacinaRabica);
-//        } else{
-//            vacina1.setText(vacinaV3);
-//            vacina2.setText(vacinaV4);
-//            vacina3.setText(vacinaV5);
-//            vacina4.setText(vacinaRabica);
-//        }
-
     }
 
     public void botaoCadastrar(View v){
@@ -120,6 +124,19 @@ public class TelaCadastroAnimal extends AppCompatActivity {
         String pesoAnimal = pesoCadastroAnimal.getText().toString();
         String corAnimal = corCadastroAnimal.getText().toString();
         String dataNascimento = dataNascimentoAnimal.getText().toString();
+
+        if(vacina1.isChecked()){
+            String vacina1Texto = vacina1.getText().toString();
+        }
+        if(vacina2.isChecked()){
+            String vacina2Texto = vacina2.getText().toString();
+        }
+        if(vacina3.isChecked()){
+            String vacina3Texto = vacina3.getText().toString();
+        }
+        if(vacina4.isChecked()){
+            String vacina4Texto = vacina4.getText().toString();
+        }
 
         if(TextUtils.isEmpty(nomeAnimal.trim()))
             Toast.makeText(this, "Campo nome inválido!", Toast.LENGTH_SHORT).show();
@@ -129,12 +146,16 @@ public class TelaCadastroAnimal extends AppCompatActivity {
             Toast.makeText(this, "Campo cor inválido!", Toast.LENGTH_SHORT).show();
         else if(TextUtils.isEmpty(dataNascimento.trim()))
             Toast.makeText(this, "Campo data de nascimento inválido!", Toast.LENGTH_SHORT).show();
+        else {
+            Toast.makeText(this, "Tudo ok!", Toast.LENGTH_SHORT).show();
+            onBackPressed();
+        }
 
 
     }
-
 
     public void botaoVoltar(View v){
         onBackPressed();
     }
+    
 }

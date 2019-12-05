@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TelaCadastroAnimal">
+    tools:context=".TelaEditarAnimal">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,120 +24,137 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/txvNomeAnimal"
-                android:layout_width="match_parent"
+                android:id="@+id/txvIdAnimal"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="ID Animal" />
+
+            <TextView
+                android:id="@+id/txvNomeAnimalEditar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/nome" />
 
             <EditText
-                android:id="@+id/edtNomeAnimal"
+                android:id="@+id/edtNomeAnimalEditar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName" />
 
             <TextView
-                android:id="@+id/txvEspecieAnimal"
+                android:id="@+id/txvEspecieAnimalEditar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/esp_cie" />
 
             <Spinner
-                android:id="@+id/spnEspecieAnimal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/txvSexoAnimal"
+                android:id="@+id/spnEspecieAnimalEditar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/txvSexoAnimalEditar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/sexo" />
 
             <Spinner
-                android:id="@+id/spnSexoAnimal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/txvPesoAnimal"
+                android:id="@+id/spnSexoAnimalEditar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/txvPesoAnimalEditar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/peso" />
 
             <EditText
-                android:id="@+id/edtPesoAnimal"
+                android:id="@+id/edtPesoAnimalEditar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName" />
 
             <TextView
-                android:id="@+id/txvCorAnimal"
+                android:id="@+id/txvCorAnimalEditar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/cor" />
 
             <EditText
-                android:id="@+id/edtCorAnimal"
+                android:id="@+id/edtCorAnimalEditar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName" />
 
             <TextView
-                android:id="@+id/txvDataNascimentoAnimal"
+                android:id="@+id/txvDataNascimentoAnimalEditar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/data_de_nascimento" />
 
-            <Button
-                android:id="@+id/btnSelecionarData"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/selecionar_data" />
-
             <EditText
-                android:id="@+id/edtDataNascimentoAnimal"
+                android:id="@+id/edtDataNascimentoAnimalEditar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:ems="10"
                 android:inputType="date" />
 
             <CheckBox
-                android:id="@+id/ckbVacina1"
+                android:id="@+id/ckbVacina1Editar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
             <CheckBox
-                android:id="@+id/ckbVacina2"
+                android:id="@+id/ckbVacina2Editar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
             <CheckBox
-                android:id="@+id/ckbVacina3"
+                android:id="@+id/ckbVacina3Editar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
             <CheckBox
-                android:id="@+id/ckbVacina4"
+                android:id="@+id/ckbVacina4Editar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
             <Button
-                android:id="@+id/btnCadastrarAnimal"
+                android:id="@+id/btnSalvarEditar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="botaoCadastrar"
-                android:text="@string/cadastrar" />
+                android:layout_weight="1"
+                android:onClick="btnSalvar"
+                android:text="@string/salvar" />
 
             <Button
-                android:id="@+id/btnVoltar"
+                android:id="@+id/btnVoltarEditar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="botaoVoltar"
+                android:layout_weight="1"
+                android:onClick="btnVoltarEditar"
                 android:text="@string/voltar" />
-
         </LinearLayout>
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
