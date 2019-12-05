@@ -28,11 +28,11 @@ public class MainActivity extends AppCompatActivity {
         String loginTexto = login.getText().toString();
         String senhaTexto = senha.getText().toString();
 
-        if(loginTexto.equals("admin")&& senhaTexto.equals("admin")){
+//        if(loginTexto.equals("admin")&& senhaTexto.equals("admin")){
             Intent intent = new Intent(this, TelaPrincipal.class);
             startActivity(intent);
-        } else
-            Toast.makeText(this, "Login ou senha incorretos!", Toast.LENGTH_SHORT).show();
+//        } else
+//            Toast.makeText(this, "Login ou senha incorretos!", Toast.LENGTH_SHORT).show();
 
     }
 }

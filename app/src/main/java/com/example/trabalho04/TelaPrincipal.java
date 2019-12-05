@@ -8,6 +8,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.JsonReader;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +20,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -25,11 +29,21 @@ public class TelaPrincipal extends AppCompatActivity {
 
     private static final String URL = "http://10.0.2.2:8080/animal";
     final int duracao = Toast.LENGTH_LONG;
+    ArrayList<Animal> Animals = new ArrayList<Animal>();
+    Spinner spinner;
 
+    Integer valueID;
+    String value;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_principal);
+        this.listaAnimal();
+        spinner=(Spinner)findViewById(R.id.animalSpinner);
+
+        ArrayAdapter<Animal> spinnerArrayAdapter = new ArrayAdapter<Animal>(this, android.R.layout.simple_spinner_item, Animals);
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
+        spinner.setAdapter(spinnerArrayAdapter);
 
     }
 
@@ -38,9 +52,17 @@ public class TelaPrincipal extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void clicar (View v){
+
+//        String itemSelecionado = spinner.getSelectedItem().toString();
+        Animal animal = (Animal )spinner.getSelectedItem();
+        String itemSelecionado = Integer.toString( animal.getId());
+        TextView label = findViewById(R.id.textView);
+        label.setText((itemSelecionado));
+    }
 
 
-    public void listaAnimal(View v) {
+    public void listaAnimal() {
         final TextView exemplo = findViewById(R.id.textView);
         final Context contexto = getApplicationContext();
 
@@ -56,48 +78,30 @@ public class TelaPrincipal extends AppCompatActivity {
                                 (HttpURLConnection) githubEndpoint.openConnection();
 
                         if (myConnection.getResponseCode() == 200) {
-
-//                            InputStream responseBody = myConnection.getInputStream();
-//                            InputStreamReader responseBodyReader =
-//                                    new InputStreamReader(responseBody, "UTF-8");
-//                            JsonReader jsonReader = new JsonReader(responseBodyReader);
-//
-//                            String value = jsonReader.nextString();
-////                            exemplo.setText(value);
-//                            System.out.println(value);
                             InputStream responseBody = myConnection.getInputStream();
                             InputStreamReader responseBodyReader =
                                     new InputStreamReader(responseBody, "UTF-8");
                             JsonReader jsonReader = new JsonReader(responseBodyReader);
-                            jsonReader.beginArray(); // Start processing the JSON object
-                            while (jsonReader.hasNext()) { // Loop through all keys
+                            jsonReader.beginArray();
+                            while (jsonReader.hasNext()) {
                                 jsonReader.beginObject();
                                 while(jsonReader.hasNext()){
                                 String key = jsonReader.nextName(); // Fetch the next key
-                                if (key.equals("animalName")) { // Check if desired key
+                                if(key.equals("id")){
+                                    valueID = jsonReader.nextInt();
+                                }else if (key.equals("animalName")) { // Check if desired key
                                     // Fetch the value as a String
-                                    final String value = jsonReader.nextString();
-                                    runOnUiThread(new Runnable() {
-
-                                        @Override
-                                        public void run() {
-                                            exemplo.setText(value);
-
-
-                                            // Stuff that updates the UI
-
-                                        }
-                                    });
-                                    // Do something with the value
-                                    // ...
-
-                                    break; // Break out of the loop
+                                    value = jsonReader.nextString();
 
                                 } else {
                                     jsonReader.skipValue(); // Skip values of other keys
-                                }}
+                                }
+                                Animals.add(new Animal(valueID,value));
+                                }
+
+                                jsonReader.endObject();
                             }
-                            jsonReader.close();
+                            jsonReader.endArray();
                         } else {
                             // Error handling code goes here
                         }
@@ -114,6 +118,7 @@ public class TelaPrincipal extends AppCompatActivity {
             Toast noItem = Toast.makeText(contexto, "Não foi possivel trazer a lista animal", duracao);
             noItem.show();
         }
+
     }
 
 
