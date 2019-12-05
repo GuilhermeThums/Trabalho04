@@ -39,10 +39,6 @@ public class TelaCadastroAnimal extends AppCompatActivity {
     String vacinaV4 = "Vacina v4";
     String vacinaV5 = "Vacina v5";
 
-    private TextView dataTexto;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,15 +54,7 @@ public class TelaCadastroAnimal extends AppCompatActivity {
         vacina2 = findViewById(R.id.ckbVacina2);
         vacina3 = findViewById(R.id.ckbVacina3);
         vacina4 = findViewById(R.id.ckbVacina4);
-
-        dataTexto = findViewById(R.id.edtDataNascimentoAnimal);
-        findViewById(R.id.btnSelecionarData).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
+        
         String[] sexoAnimal = getResources().getStringArray(R.array.arraySexoAnimal);
         Spinner spinnerSexoAnimal = findViewById(R.id.spnSexoAnimal);
         ArrayAdapter<String> sexoAnimalAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, sexoAnimal);
@@ -157,5 +145,5 @@ public class TelaCadastroAnimal extends AppCompatActivity {
     public void botaoVoltar(View v){
         onBackPressed();
     }
-    
+
 }
