@@ -31,7 +31,7 @@ public class TelaPrincipal extends AppCompatActivity {
     final int duracao = Toast.LENGTH_LONG;
     ArrayList<Animal> Animals = new ArrayList<Animal>();
     Spinner spinner;
-
+    ArrayAdapter<Animal> spinnerArrayAdapter;
     Integer valueID;
     String value;
     @Override
@@ -41,7 +41,7 @@ public class TelaPrincipal extends AppCompatActivity {
         this.listaAnimal();
         spinner=(Spinner)findViewById(R.id.animalSpinner);
 
-        ArrayAdapter<Animal> spinnerArrayAdapter = new ArrayAdapter<Animal>(this, android.R.layout.simple_spinner_item, Animals);
+         spinnerArrayAdapter = new ArrayAdapter<Animal>(this, android.R.layout.simple_spinner_item, Animals);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
         spinner.setAdapter(spinnerArrayAdapter);
 
@@ -89,19 +89,20 @@ public class TelaPrincipal extends AppCompatActivity {
                                 String key = jsonReader.nextName(); // Fetch the next key
                                 if(key.equals("id")){
                                     valueID = jsonReader.nextInt();
-                                }else if (key.equals("animalName")) { // Check if desired key
+                                }else if (key.equals("animalNome")) { // Check if desired key
                                     // Fetch the value as a String
                                     value = jsonReader.nextString();
 
                                 } else {
                                     jsonReader.skipValue(); // Skip values of other keys
                                 }
-                                Animals.add(new Animal(valueID,value));
                                 }
+                                Animals.add(new Animal(valueID,value));
 
                                 jsonReader.endObject();
                             }
                             jsonReader.endArray();
+                            spinnerArrayAdapter.notifyDataSetChanged();
                         } else {
                             // Error handling code goes here
                         }

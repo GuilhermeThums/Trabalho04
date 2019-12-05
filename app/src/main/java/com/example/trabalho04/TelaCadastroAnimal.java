@@ -120,6 +120,10 @@ public class TelaCadastroAnimal extends AppCompatActivity {
         String pesoAnimal = pesoCadastroAnimal.getText().toString();
         String corAnimal = corCadastroAnimal.getText().toString();
         String dataNascimento = dataNascimentoAnimal.getText().toString();
+        String sexo = sexoDoAnimalTexto;
+        String especie =  especieDoAnimalTexto;
+
+
 
         if(TextUtils.isEmpty(nomeAnimal.trim()))
             Toast.makeText(this, "Campo nome inválido!", Toast.LENGTH_SHORT).show();
