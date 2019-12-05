@@ -112,6 +112,10 @@ public class TelaCadastroAnimal extends AppCompatActivity {
         String pesoAnimal = pesoCadastroAnimal.getText().toString();
         String corAnimal = corCadastroAnimal.getText().toString();
         String dataNascimento = dataNascimentoAnimal.getText().toString();
+        String sexo = sexoDoAnimalTexto;
+        String especie =  especieDoAnimalTexto;
+
+
 
         if(vacina1.isChecked()){
             String vacina1Texto = vacina1.getText().toString();
