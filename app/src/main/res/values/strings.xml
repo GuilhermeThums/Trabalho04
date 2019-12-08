@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Trabalho04</string>
-    <string name="prime_dog">PRIME DOG PET SHOP</string>
+    <string name="prime_dog">PRIME DOG FICHA VETERINÁRIA</string>
     <string name="senha">Senha</string>
     <string name="login">Login</string>
     <string name="entrar">Entrar</string>
@@ -17,13 +17,16 @@
     <string name="cor">Cor</string>
     <string name="data_de_nascimento">Data de nascimento (dd/mm/aaaa)</string>
     <string name="voltar">Voltar</string>
-    <string name="salvar">Salvar</string>
+    <string name="salvarAnimal">Salvar Animal</string>
     <string name="editar_animal">Editar animal</string>
     <string name="seus_animais">Seus animais:</string>
     <string name="bem_vindo_a">Bem vindo(a)!</string>
     <string name="cadastrar_animal">Cadastrar animal</string>
     <string name="sair">Sair</string>
     <string name="selecionar_data">Selecionar data</string>
+    <string name="salvar_login">Salvar login</string>
+    <string name="excluir_animal">Excluir animal</string>
+    <string name="id_animal">ID Animal</string>
 
     <string-array name="arraySexoHumano">
         <item>Masculino</item>

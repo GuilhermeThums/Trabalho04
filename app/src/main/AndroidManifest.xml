@@ -16,7 +16,6 @@
         <activity android:name=".TelaEditarAnimal"></activity>
         <activity android:name=".TelaCadastroAnimal" />
         <activity android:name=".TelaPrincipal" />
-        <activity android:name=".TelaCadastroCliente" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

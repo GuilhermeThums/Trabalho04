@@ -39,26 +39,15 @@
         app:layout_constraintTop_toBottomOf="@+id/txvSenha" />
 
     <Button
-        android:id="@+id/btnCadastro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="20dp"
-        android:onClick="abrirTelaCadastro"
-        android:text="@string/cadastrar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtSenha" />
-
-    <Button
         android:id="@+id/btnEntrar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
-        android:onClick="abrirTelaPrincipal"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="32dp"
+        android:onClick="entrarApp"
         android:text="@string/entrar"
-        app:layout_constraintStart_toEndOf="@+id/btnCadastro"
-        app:layout_constraintTop_toBottomOf="@+id/edtSenha" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxSalvarPreferencias" />
 
     <TextView
         android:id="@+id/txvSenha"
@@ -74,10 +63,19 @@
         android:id="@+id/txvNomePetShop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="108dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="44dp"
         android:text="@string/prime_dog"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/checkBoxSalvarPreferencias"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:text="@string/salvar_login"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtSenha" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.JsonReader;
@@ -33,10 +34,9 @@ public class TelaPrincipal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_principal);
-       this.listaAnimal();
+        this.listaAnimal();
         spinnerAnimal=findViewById(R.id.spnAnimal);
-
-         spinnerArrayAdapter = new ArrayAdapter<Animal>(this, android.R.layout.simple_spinner_item, Animals);
+        spinnerArrayAdapter = new ArrayAdapter<Animal>(this, android.R.layout.simple_spinner_item, Animals);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
         spinnerAnimal.setAdapter(spinnerArrayAdapter);
 
@@ -47,7 +47,7 @@ public class TelaPrincipal extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void editarAnimal (View v){
+    public void editarAnimal(View v){
         Animal animal = (Animal )spinnerAnimal.getSelectedItem();
         Integer itemSelecionado = animal.getId();
 
@@ -56,6 +56,23 @@ public class TelaPrincipal extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void sairSessao(View v){
+        SharedPreferences preferencia = getSharedPreferences("checkbox", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferencia.edit();
+        editor.putString("lembrar", "falso");
+        editor.apply();
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        SharedPreferences preferencia = getSharedPreferences("checkbox", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferencia.edit();
+        editor.putString("lembrar", "falso");
+        editor.apply();
+        finish();
+    }
 
     public void listaAnimal() {
         final TextView exemplo = findViewById(R.id.txvBemVindo);
