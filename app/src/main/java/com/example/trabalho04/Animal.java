@@ -22,13 +22,16 @@ public class Animal {
         this.id = id;
         this.animalNome = animalNome;
     }
-    public Animal(int id, String animalNome,String animalEspecie) {
+
+    public Animal(int id, String animalNome, String animalEspecie, String animalSexo, String animalCor, Double animalPeso, Date animalNascimento) {
         this.id = id;
         this.animalNome = animalNome;
         this.animalEspecie = animalEspecie;
+        this.animalSexo = animalSexo;
+        this.animalCor = animalCor;
+        this.animalPeso = animalPeso;
+        this.animalNascimento = animalNascimento;
     }
-
-
 
     public int getId() {
         return id;

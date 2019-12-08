@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.JsonReader;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,13 +15,16 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class TelaEditarAnimal extends AppCompatActivity {
     Integer animalId;
-    ArrayList<Animal> Animals = new ArrayList<Animal>();
+    Animal animal;
     String animalCor,animalEspecie,animalNascimento,animalNome,animalSexo;
     Double animalPeso;
+    Date date;
     final int duracao = Toast.LENGTH_LONG;
 
     @Override
@@ -59,6 +63,7 @@ public class TelaEditarAnimal extends AppCompatActivity {
                                     animalEspecie = jsonReader.nextString();
                                 } else if (key.equals("animalNascimento")) {
                                      animalNascimento = jsonReader.nextString();
+                                    date=new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").parse(animalNascimento);
                                 }else if (key.equals("animalNome")) {
                                      animalNome = jsonReader.nextString();
                                 }else if (key.equals("animalPeso")) {
@@ -70,10 +75,10 @@ public class TelaEditarAnimal extends AppCompatActivity {
                                     jsonReader.skipValue(); // Skip values of other keys
                                 }
 
-                                Animals.add(new Animal(animalId, animalNome));
-
-                                jsonReader.endObject();
                             }
+                            jsonReader.endObject();
+                            animal = new Animal(animalId, animalNome,animalEspecie,animalSexo,animalCor,animalPeso,date);
+                            setAnimalFields();
                         } else {
                             // Error handling code goes here
                         }
@@ -93,6 +98,10 @@ public class TelaEditarAnimal extends AppCompatActivity {
             noItem.show();
         }
 
+    }
+    public void setAnimalFields(){
+        EditText animalNome = findViewById(R.id.edtNomeAnimalEditar);
+        animalNome.setText(animal.getAnimalNome());
     }
 
 
