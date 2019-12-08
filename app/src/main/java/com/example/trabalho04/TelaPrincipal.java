@@ -33,7 +33,7 @@ public class TelaPrincipal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_principal);
-//        this.listaAnimal();
+       this.listaAnimal();
         spinnerAnimal=findViewById(R.id.spnAnimal);
 
          spinnerArrayAdapter = new ArrayAdapter<Animal>(this, android.R.layout.simple_spinner_item, Animals);
@@ -48,14 +48,11 @@ public class TelaPrincipal extends AppCompatActivity {
     }
 
     public void editarAnimal (View v){
-
-//        String itemSelecionado = spinnerAnimal.getSelectedItem().toString();
-//        Animal animal = (Animal )spinnerAnimal.getSelectedItem();
-//        itemSelecionado = Integer.toString( animal.getId());
-//        TextView label = findViewById(R.id.txvBemVindo);
-//        label.setText((itemSelecionado));
+        Animal animal = (Animal )spinnerAnimal.getSelectedItem();
+        Integer itemSelecionado = animal.getId();
 
         Intent intent = new Intent(this, TelaEditarAnimal.class);
+        intent.putExtra("id", itemSelecionado );
         startActivity(intent);
     }
 
@@ -100,7 +97,12 @@ public class TelaPrincipal extends AppCompatActivity {
                                 jsonReader.endObject();
                             }
                             jsonReader.endArray();
-                            spinnerArrayAdapter.notifyDataSetChanged();
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    spinnerArrayAdapter.notifyDataSetChanged();
+                                }
+                            });
                         } else {
                             // Error handling code goes here
                         }
