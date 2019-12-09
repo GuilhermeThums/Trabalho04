@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TelaDeletarAnimal"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/txvIdAnimalDeletar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/id_animal" />
+
+    <TextView
+        android:id="@+id/txvNomeAnimalDeletar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/nome" />
+
+    <TextView
+        android:id="@+id/txvNomeAnimalDeletarConteudo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/txvConfirmaDeletar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tem_certeza_que_deseja_deletar" />
+
+    <Button
+        android:id="@+id/btnSimDeletar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="deletarAnimal"
+        android:text="@string/sim"
+/>
+
+    <Button
+        android:id="@+id/btnNaoDeletar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="voltarTelaEditar"
+        android:text="@string/n_o" />
+</LinearLayout>

@@ -26,7 +26,10 @@
     <string name="selecionar_data">Selecionar data</string>
     <string name="salvar_login">Salvar login</string>
     <string name="excluir_animal">Excluir animal</string>
-    <string name="id_animal">ID Animal</string>
+    <string name="id_animal">ID Animal: </string>
+    <string name="n_o">Não</string>
+    <string name="sim">Sim</string>
+    <string name="tem_certeza_que_deseja_deletar">Tem certeza que deseja deletar?</string>
 
     <string-array name="arraySexoHumano">
         <item>Masculino</item>

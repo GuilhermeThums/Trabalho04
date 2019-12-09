@@ -3,10 +3,12 @@ package com.example.trabalho04;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.JsonReader;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +19,13 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class TelaEditarAnimal extends AppCompatActivity {
+    TextView idAnimalEditar;
+    EditText nomeAnimalEditar;
+    EditText pesoAnimalEditar;
+    EditText corAnimalEditar;
+    EditText dataNascimentoAnimalEditar;
+
+
     Integer animalId;
     ArrayList<Animal> Animals = new ArrayList<Animal>();
     String animalCor,animalEspecie,animalNascimento,animalNome,animalSexo;
@@ -27,10 +36,19 @@ public class TelaEditarAnimal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_editar_animal);
+        getAnimal();
         Bundle intent = getIntent().getExtras();
         animalId = intent.getInt("id");
-        getAnimal();
+        animalNome = intent.getString("nome");
 
+        idAnimalEditar = findViewById(R.id.txvIdAnimalEditar);
+        nomeAnimalEditar = findViewById(R.id.edtNomeAnimal);
+        pesoAnimalEditar = findViewById(R.id.edtPesoAnimal);
+        corAnimalEditar = findViewById(R.id.edtCorAnimal);
+        dataNascimentoAnimalEditar = findViewById(R.id.edtDataNascimentoAnimal);
+
+
+        nomeAnimalEditar.setText(animalNome);
     }
 
     public void getAnimal() {
@@ -93,6 +111,17 @@ public class TelaEditarAnimal extends AppCompatActivity {
             noItem.show();
         }
 
+    }
+
+    public void deletarAnimal(View v){
+        String animalIdDeletarString = String.valueOf(animalId);
+        Intent intent = new Intent(this, TelaDeletarAnimal.class);
+
+        Bundle passarInfosDeletar = new Bundle();
+        passarInfosDeletar.putString("id", animalIdDeletarString);
+        passarInfosDeletar.putString("nome", animalNome);
+        intent.putExtras(passarInfosDeletar);
+        startActivity(intent);
     }
 
 

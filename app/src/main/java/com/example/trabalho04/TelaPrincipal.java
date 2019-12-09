@@ -30,11 +30,12 @@ public class TelaPrincipal extends AppCompatActivity {
     ArrayAdapter<Animal> spinnerArrayAdapter;
     Integer valueID;
     String value;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_principal);
-        this.listaAnimal();
+//        this.listaAnimal();
         spinnerAnimal=findViewById(R.id.spnAnimal);
         spinnerArrayAdapter = new ArrayAdapter<Animal>(this, android.R.layout.simple_spinner_item, Animals);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
@@ -49,13 +50,12 @@ public class TelaPrincipal extends AppCompatActivity {
 
     public void editarAnimal(View v){
         Animal animal = (Animal )spinnerAnimal.getSelectedItem();
-        Integer itemSelecionado = animal.getId();
+        int itemSelecionado = animal.getId();
 
         Intent intent = new Intent(this, TelaEditarAnimal.class);
-        intent.putExtra("id", itemSelecionado );
         startActivity(intent);
     }
-
+    //Muda o arquivo de preferências pra "falso" e salva
     public void sairSessao(View v){
         SharedPreferences preferencia = getSharedPreferences("checkbox", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferencia.edit();
@@ -64,6 +64,7 @@ public class TelaPrincipal extends AppCompatActivity {
         finish();
     }
 
+    //Muda a função de voltar do Android para salvar o arquivo de preferências como "falso" e voltar pra tela de login
     @Override
     public void onBackPressed() {
         super.onBackPressed();
