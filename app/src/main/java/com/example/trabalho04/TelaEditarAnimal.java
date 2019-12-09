@@ -18,22 +18,34 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static java.lang.Double.parseDouble;
 
@@ -58,10 +70,9 @@ public class TelaEditarAnimal extends AppCompatActivity {
     String vacinaV5 = "Vacina v5";
 
 
-
     Integer animalId;
     Animal animal;
-    String animalCor, animalEspecie, animalNascimento, animalNome, animalSexo;
+    String animalCor, animalEspecie, animalNascimento, animalNome, animalSexo , dateNascimentoEnviarString;
     Double animalPeso;
     Date dateFormat, dateNascimentoEnviar;
     final int duracao = Toast.LENGTH_LONG;
@@ -104,34 +115,35 @@ public class TelaEditarAnimal extends AppCompatActivity {
         spinnerEspecie.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position == 0){
+                if (position == 0) {
                     vacina1.setText(vacinaV8);
                     vacina2.setText(vacinaV10);
                     vacina3.setText(vacinaV12);
                     vacina4.setText(vacinaRabica);
-                    if(vacina1.isChecked())
+                    if (vacina1.isChecked())
                         vacina1.toggle();
-                    if(vacina2.isChecked())
+                    if (vacina2.isChecked())
                         vacina2.toggle();
-                    if(vacina3.isChecked())
+                    if (vacina3.isChecked())
                         vacina3.toggle();
-                    if(vacina4.isChecked())
+                    if (vacina4.isChecked())
                         vacina4.toggle();
-                } else if(position == 1){
+                } else if (position == 1) {
                     vacina1.setText(vacinaV3);
                     vacina2.setText(vacinaV4);
                     vacina3.setText(vacinaV5);
                     vacina4.setText(vacinaRabica);
-                    if(vacina1.isChecked())
+                    if (vacina1.isChecked())
                         vacina1.toggle();
-                    if(vacina2.isChecked())
+                    if (vacina2.isChecked())
                         vacina2.toggle();
-                    if(vacina3.isChecked())
+                    if (vacina3.isChecked())
                         vacina3.toggle();
-                    if(vacina4.isChecked())
+                    if (vacina4.isChecked())
                         vacina4.toggle();
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -239,9 +251,13 @@ public class TelaEditarAnimal extends AppCompatActivity {
             dateNascimentoEnviar = format.parse(animalDate);
         } catch (ParseException e) {
             e.printStackTrace();
-        }}
-
-    public void deletarAnimal(View v){
+        }
+    }
+    public void dateToExpectedString(){
+        SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
+        dateNascimentoEnviarString = formatador.format(dateNascimentoEnviar);
+    }
+    public void deletarAnimal(View v) {
         Intent intent = new Intent(this, TelaDeletarAnimal.class);
         animalNome = animal.getAnimalNome();
         Bundle passarInfosDeletar = new Bundle();
@@ -254,120 +270,93 @@ public class TelaEditarAnimal extends AppCompatActivity {
 
     public void btnSalvar(View v) {
         stringToDate(editNascimento.getText().toString());
+        dateToExpectedString();
         final String cor = editCor.getText().toString();
-        final Date nascimento = dateNascimentoEnviar;
+        final String nascimento = dateNascimentoEnviarString;
         final String nome = editNome.getText().toString();
         final Double peso = parseDouble(editPeso.getText().toString());
         final String sexo = spinnerSexo.getSelectedItem().toString();
         final String especie = spinnerEspecie.getSelectedItem().toString();
 
-        if(TextUtils.isEmpty(nome.trim()))
+        if (TextUtils.isEmpty(nome.trim()))
             Toast.makeText(this, "Campo nome vazio", Toast.LENGTH_SHORT).show();
 //        else if(!nomeRegex)
 //            Toast.makeText(this, "Campo nome inválido (apenas letras)", Toast.LENGTH_SHORT).show();
-        else if(peso <= 0 || peso > 122)
+        else if (peso <= 0 || peso > 122)
             Toast.makeText(this, "Campo peso inválido", Toast.LENGTH_SHORT).show();
-        else if(TextUtils.isEmpty(cor.trim()))
+        else if (TextUtils.isEmpty(cor.trim()))
             Toast.makeText(this, "Campo cor vazio", Toast.LENGTH_SHORT).show();
 //        else if(!nomeRegex)
 //            Toast.makeText(this, "Campo cor inválido", Toast.LENGTH_SHORT).show();
 //        else if(nascimento)
 //            Toast.makeText(this, "Campo data de nascimento inválido!", Toast.LENGTH_SHORT).show();
         else {
-        }
+
+            RequestQueue queue = Volley.newRequestQueue(this);
+            String url = "http://10.0.2.2:8080/animal/" + animalId;
 
 
-
-            InputStream inputStream = null;
-            String result = "";
-
+            final JSONObject jsonObject = new JSONObject();
             try {
-//                 1. create HttpClient
-                HttpClient httpclient = new DefaultHttpClient();
-
-                // 2. make POST request to the given URL
-                HttpPut httpPUT = new
-                        HttpPut("http://10.0.2.2:8080/animal/" + animalId);
-                String json = "";
-                // 3. build jsonObject
-                JSONObject jsonParam = new JSONObject();
-                jsonParam.put("animalNome", nome);
-                jsonParam.put("animalEspecie", especie);
-                jsonParam.put("animalSexo", sexo);
-                jsonParam.put("animalCor", cor);
-                jsonParam.put("animalNascimento", nascimento);
-                jsonParam.put("animalPeso", peso);
-
-
-                // 4. convert JSONObject to JSON to String
-                json = jsonParam.toString();
-
-                // 5. set json to StringEntity
-                StringEntity se = new StringEntity(json);
-                // 6. set httpPost Entity
-                httpPUT.setEntity(se);
-                // 7. Set some headers to inform server about the type of the content
-                httpPUT.setHeader("Accept", "application/json");
-                httpPUT.setHeader("Content-type", "application/json");
-                // 8. Execute POST request to the given URL
-                HttpResponse httpResponse = httpclient.execute(httpPUT);
-                // 9. receive response as inputStream
-                //                  inputStream = httpResponse.getEntity().getContent();
-                //                  // 10. convert inputstream to string
-                //                  if(inputStream != null)
-                //                      result = convertInputStreamToString(inputStream);
-                //                  else
-                //                      result = "Did not work!";
-            } catch (Exception e) {
-                Log.d("InputStream", e.getLocalizedMessage());
+                jsonObject.put("animalNome", nome);
+                jsonObject.put("animalEspecie", especie);
+                jsonObject.put("animalSexo", sexo);
+                jsonObject.put("animalCor", cor);
+                jsonObject.put("animalNascimento", nascimento);
+                jsonObject.put("animalPeso", peso);
+            } catch (JSONException e) {
+                // handle exception
             }
 
-//            return "EXITO!";
-//
-//
-//
-//
-////        Animal animal = new Animal(animalId, nome, especie, sexo, cor, peso, nascimento);
-//            Thread thread = new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    try {
-//                        URL url = new URL("http://10.0.2.2:8080/animal/" + animalId);
-//                        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-//                        conn.setRequestMethod("PUT");
-//                        conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
-//                        conn.setRequestProperty("Accept","application/json");
-//                        conn.setDoOutput(true);
-//                        conn.setDoInput(true);
-//
-//                        JSONObject jsonParam = new JSONObject();
-//                        jsonParam.put("animalNome", nome);
-//                        jsonParam.put("animalEspecie", especie);
-//                        jsonParam.put("animalSexo", sexo);
-//                        jsonParam.put("animalCor", cor);
-//                        jsonParam.put("animalNascimento", nascimento);
-//                        jsonParam.put("animalPeso", peso);
-//
-//                        Log.i("JSON", jsonParam.toString());
-//                        DataOutputStream os = new DataOutputStream(conn.getOutputStream());
-//                        os.writeBytes(jsonParam.toString());
-//
-//                        os.flush();
-//                        os.close();
-//
-//                        Log.i("STATUS", String.valueOf(conn.getResponseCode()));
-//                        Log.i("MSG" , conn.getResponseMessage());
-//
-//                        conn.disconnect();
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            });
-//
-//            thread.start();
 
+            JsonObjectRequest putRequest = new JsonObjectRequest(Request.Method.PUT, url, jsonObject,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            // response
+                            Log.d("Response", response.toString());
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            // error
+                            Log.d("Error.Response", error.toString());
+                        }
+                    }
+            ) {
+
+                @Override
+                public Map<String, String> getHeaders() {
+                    Map<String, String> headers = new HashMap<String, String>();
+                    headers.put("Content-Type", "application/json");
+                    headers.put("Accept", "application/json");
+                    return headers;
+                }
+
+                @Override
+                public byte[] getBody() {
+
+                    try {
+                        Log.i("json", jsonObject.toString());
+                        return jsonObject.toString().getBytes("UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                }
+
+                @Override
+                public String getBodyContentType() {
+                    return "application/json";
+                }
+            };
+
+
+            queue.add(putRequest);
+        }
     }
+
 
     public void btnVoltarEditar(View v) {
         onBackPressed();
