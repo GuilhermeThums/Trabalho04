@@ -115,8 +115,6 @@ public class TelaCadastroAnimal extends AppCompatActivity {
         String sexo = sexoDoAnimalTexto;
         String especie = especieDoAnimalTexto;
 
-//        boolean nomeRegex = Pattern.matches("^[a-zA-Z\\u00C0-\\u00FF]{2,224}$", nomeAnimal);
-
         boolean regexDouble = Pattern.matches("^[-+]?[0-9]*\\.?[0-9]+$", pesoAnimal);
 
         if (!validarDate(dataNascimento)) {

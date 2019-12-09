@@ -46,6 +46,7 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import static java.lang.Double.parseDouble;
 
@@ -234,13 +235,17 @@ public class TelaEditarAnimal extends AppCompatActivity {
         final String nome = editNome.getText().toString();
         final String sexo = spinnerSexo.getSelectedItem().toString();
         final String especie = spinnerEspecie.getSelectedItem().toString();
-
+        final String pesoAnimal = editPeso.getText().toString();
+        boolean regexDouble = Pattern.matches("^[-+]?[0-9]*\\.?[0-9]+$", pesoAnimal);
         if (!validarDate(dataNascimento)) {
             Toast.makeText(this, "Data Invalida", Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(editPeso.getText().toString().trim())) {
             Toast.makeText(this, "Campo peso vazio", Toast.LENGTH_SHORT).show();
+        } else if (!regexDouble) {
+            Toast.makeText(this, "Campo peso inválido", Toast.LENGTH_SHORT).show();
         } else {
-            final Double peso = parseDouble(editPeso.getText().toString());
+
+            final Double peso = parseDouble(pesoAnimal);
 
             if (TextUtils.isEmpty(nome.trim()))
                 Toast.makeText(this, "Campo nome vazio", Toast.LENGTH_SHORT).show();
@@ -321,6 +326,8 @@ public class TelaEditarAnimal extends AppCompatActivity {
             }
         }
     }
+
+
 
 
     public void btnVoltarEditar(View v) {
