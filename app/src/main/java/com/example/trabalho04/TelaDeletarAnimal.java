@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 public class TelaDeletarAnimal extends AppCompatActivity {
-    String nomeAnimal, idAnimalString;
+    String nomeAnimal;
     int idAnimalInt;
 
     TextView txvIdAnimalDeletar;
@@ -21,9 +21,8 @@ public class TelaDeletarAnimal extends AppCompatActivity {
         txvNomeAnimalDeletarConteudo = findViewById(R.id.txvNomeAnimalDeletarConteudo);
         //Pega o nome e ID da activity anterior
         Bundle argumentos = getIntent().getExtras();
-        idAnimalString = argumentos.getString("id");
+        idAnimalInt = argumentos.getInt("id");
         nomeAnimal = argumentos.getString("nome");
-        idAnimalInt = Integer.parseInt(idAnimalString);
         //Atualiza os textos com Id e Nome do animal
         txvIdAnimalDeletar.setText("ID do animal: " + idAnimalInt);
         txvNomeAnimalDeletarConteudo.setText(nomeAnimal);

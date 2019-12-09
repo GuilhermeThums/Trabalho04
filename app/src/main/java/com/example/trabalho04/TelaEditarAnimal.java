@@ -78,16 +78,6 @@ public class TelaEditarAnimal extends AppCompatActivity {
         spinnerSexo.setAdapter(adapterSexo);
 
         getAnimal();
-        animalNome = intent.getString("nome");
-
-        idAnimalEditar = findViewById(R.id.txvIdAnimalEditar);
-        nomeAnimalEditar = findViewById(R.id.edtNomeAnimal);
-        pesoAnimalEditar = findViewById(R.id.edtPesoAnimal);
-        corAnimalEditar = findViewById(R.id.edtCorAnimal);
-        dataNascimentoAnimalEditar = findViewById(R.id.edtDataNascimentoAnimal);
-
-
-        nomeAnimalEditar.setText(animalNome);
     }
 
 
@@ -189,13 +179,14 @@ public class TelaEditarAnimal extends AppCompatActivity {
             dateNascimentoEnviar = format.parse(animalDate);
         } catch (ParseException e) {
             e.printStackTrace();
-        }
+        }}
+
     public void deletarAnimal(View v){
         String animalIdDeletarString = String.valueOf(animalId);
         Intent intent = new Intent(this, TelaDeletarAnimal.class);
 
         Bundle passarInfosDeletar = new Bundle();
-        passarInfosDeletar.putString("id", animalIdDeletarString);
+        passarInfosDeletar.putInt("id", animalId);
         passarInfosDeletar.putString("nome", animalNome);
         intent.putExtras(passarInfosDeletar);
         startActivity(intent);

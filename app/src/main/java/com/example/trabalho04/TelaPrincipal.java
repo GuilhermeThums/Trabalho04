@@ -35,8 +35,8 @@ public class TelaPrincipal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_principal);
-//        this.listaAnimal();
-        spinnerAnimal=findViewById(R.id.spnAnimal);
+        this.listaAnimal();
+        spinnerAnimal = findViewById(R.id.spnAnimal);
         spinnerArrayAdapter = new ArrayAdapter<Animal>(this, android.R.layout.simple_spinner_item, Animals);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
         spinnerAnimal.setAdapter(spinnerArrayAdapter);
@@ -48,15 +48,17 @@ public class TelaPrincipal extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void editarAnimal(View v){
-        Animal animal = (Animal )spinnerAnimal.getSelectedItem();
+    public void editarAnimal(View v) {
+        Animal animal = (Animal) spinnerAnimal.getSelectedItem();
         int itemSelecionado = animal.getId();
 
         Intent intent = new Intent(this, TelaEditarAnimal.class);
+        intent.putExtra("id",itemSelecionado);
         startActivity(intent);
     }
+
     //Muda o arquivo de preferências pra "falso" e salva
-    public void sairSessao(View v){
+    public void sairSessao(View v) {
         SharedPreferences preferencia = getSharedPreferences("checkbox", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferencia.edit();
         editor.putString("lembrar", "falso");
@@ -98,19 +100,19 @@ public class TelaPrincipal extends AppCompatActivity {
                             jsonReader.beginArray();
                             while (jsonReader.hasNext()) {
                                 jsonReader.beginObject();
-                                while(jsonReader.hasNext()){
-                                String key = jsonReader.nextName(); // Fetch the next key
-                                if(key.equals("id")){
-                                    valueID = jsonReader.nextInt();
-                                }else if (key.equals("animalNome")) { // Check if desired key
-                                    // Fetch the value as a String
-                                    value = jsonReader.nextString();
+                                while (jsonReader.hasNext()) {
+                                    String key = jsonReader.nextName(); // Fetch the next key
+                                    if (key.equals("id")) {
+                                        valueID = jsonReader.nextInt();
+                                    } else if (key.equals("animalNome")) { // Check if desired key
+                                        // Fetch the value as a String
+                                        value = jsonReader.nextString();
 
-                                } else {
-                                    jsonReader.skipValue(); // Skip values of other keys
+                                    } else {
+                                        jsonReader.skipValue(); // Skip values of other keys
+                                    }
                                 }
-                                }
-                                Animals.add(new Animal(valueID,value));
+                                Animals.add(new Animal(valueID, value));
 
                                 jsonReader.endObject();
                             }
