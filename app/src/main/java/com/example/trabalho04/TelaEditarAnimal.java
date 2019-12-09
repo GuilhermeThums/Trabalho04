@@ -53,7 +53,7 @@ public class TelaEditarAnimal extends AppCompatActivity {
 
     Integer animalId;
     Animal animal;
-    String animalCor, animalEspecie, animalNascimento, animalNome, animalSexo , dateNascimentoEnviarString;
+    String animalCor, animalEspecie, animalNascimento, animalNome, animalSexo, dateNascimentoEnviarString;
     Double animalPeso;
     Date dateFormat, dateNascimentoEnviar;
     final int duracao = Toast.LENGTH_LONG;
@@ -64,6 +64,7 @@ public class TelaEditarAnimal extends AppCompatActivity {
     ArrayAdapter<String> adapterEspecie;
     ArrayAdapter<String> adapterSexo;
     int sexoPosition, especiePosition;
+    Intent intentPrincipal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +81,7 @@ public class TelaEditarAnimal extends AppCompatActivity {
         editPeso = findViewById(R.id.edtPesoAnimalEditar);
         editEspecie = findViewById(R.id.spnEspecieAnimalEditar);
 
+        intentPrincipal = new Intent(this, TelaPrincipal.class);
         adapterEspecie = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, especies);
         adapterEspecie.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
         spinnerEspecie.setAdapter(adapterEspecie);
@@ -191,10 +193,12 @@ public class TelaEditarAnimal extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-    public void dateToExpectedString(){
+
+    public void dateToExpectedString() {
         SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
         dateNascimentoEnviarString = formatador.format(dateNascimentoEnviar);
     }
+
     public void deletarAnimal(View v) {
         Intent intent = new Intent(this, TelaDeletarAnimal.class);
         animalNome = animal.getAnimalNome();
@@ -205,93 +209,116 @@ public class TelaEditarAnimal extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public boolean validarDate(String dataNascimento) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            Date strDate = format.parse(dataNascimento);
+            Date atual = new Date();
+            if (strDate.before(atual)) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (ParseException e) {
+            Toast.makeText(this, "Data inválida", Toast.LENGTH_SHORT).show();
+            return false;
+            //handle exception
+        }
+    }
 
     public void btnSalvar(View v) {
-        stringToDate(editNascimento.getText().toString());
-        dateToExpectedString();
+
         final String cor = editCor.getText().toString();
-        final String nascimento = dateNascimentoEnviarString;
+
+        final String dataNascimento = editNascimento.getText().toString();
         final String nome = editNome.getText().toString();
-        final Double peso = parseDouble(editPeso.getText().toString());
         final String sexo = spinnerSexo.getSelectedItem().toString();
         final String especie = spinnerEspecie.getSelectedItem().toString();
 
-        if (TextUtils.isEmpty(nome.trim()))
-            Toast.makeText(this, "Campo nome vazio", Toast.LENGTH_SHORT).show();
-//        else if(!nomeRegex)
-//            Toast.makeText(this, "Campo nome inválido (apenas letras)", Toast.LENGTH_SHORT).show();
-        else if (peso <= 0 || peso > 122)
-            Toast.makeText(this, "Campo peso inválido", Toast.LENGTH_SHORT).show();
-        else if (TextUtils.isEmpty(cor.trim()))
-            Toast.makeText(this, "Campo cor vazio", Toast.LENGTH_SHORT).show();
-//        else if(!nomeRegex)
-//            Toast.makeText(this, "Campo cor inválido", Toast.LENGTH_SHORT).show();
-//        else if(nascimento)
-//            Toast.makeText(this, "Campo data de nascimento inválido!", Toast.LENGTH_SHORT).show();
-        else {
+        if (!validarDate(dataNascimento)) {
+            Toast.makeText(this, "Data Invalida", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(editPeso.getText().toString().trim())) {
+            Toast.makeText(this, "Campo peso vazio", Toast.LENGTH_SHORT).show();
+        } else {
+            final Double peso = parseDouble(editPeso.getText().toString());
 
-            RequestQueue queue = Volley.newRequestQueue(this);
-            String url = "http://10.0.2.2:8080/animal/" + animalId;
+            if (TextUtils.isEmpty(nome.trim()))
+                Toast.makeText(this, "Campo nome vazio", Toast.LENGTH_SHORT).show();
+            else if (peso <= 0 || peso > 122)
+                Toast.makeText(this, "Campo peso inválido", Toast.LENGTH_SHORT).show();
+            else if (TextUtils.isEmpty(cor.trim()))
+                Toast.makeText(this, "Campo cor vazio", Toast.LENGTH_SHORT).show();
+            else if (TextUtils.isEmpty(dataNascimento.trim()))
+                Toast.makeText(this, "Campo data de nascimento inválido!", Toast.LENGTH_SHORT).show();
+            else {
+                stringToDate(editNascimento.getText().toString());
+                dateToExpectedString();
+
+                final String nascimento = dateNascimentoEnviarString;
+                RequestQueue queue = Volley.newRequestQueue(this);
+                String url = "http://10.0.2.2:8080/animal/" + animalId;
 
 
-            final JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("animalNome", nome);
-                jsonObject.put("animalEspecie", especie);
-                jsonObject.put("animalSexo", sexo);
-                jsonObject.put("animalCor", cor);
-                jsonObject.put("animalNascimento", nascimento);
-                jsonObject.put("animalPeso", peso);
-            } catch (JSONException e) {
-                // handle exception
+                final JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("animalNome", nome);
+                    jsonObject.put("animalEspecie", especie);
+                    jsonObject.put("animalSexo", sexo);
+                    jsonObject.put("animalCor", cor);
+                    jsonObject.put("animalNascimento", nascimento);
+                    jsonObject.put("animalPeso", peso);
+                } catch (JSONException e) {
+                    // handle exception
+                }
+
+
+                JsonObjectRequest putRequest = new JsonObjectRequest(Request.Method.PUT, url, jsonObject,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                // response
+                                startActivity(intentPrincipal);
+                                Log.d("Response", response.toString());
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                // error
+                                Log.d("Error.Response", error.toString());
+                            }
+                        }
+                ) {
+
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        Map<String, String> headers = new HashMap<String, String>();
+                        headers.put("Content-Type", "application/json");
+                        headers.put("Accept", "application/json");
+                        return headers;
+                    }
+
+                    @Override
+                    public byte[] getBody() {
+
+                        try {
+                            Log.i("json", jsonObject.toString());
+                            return jsonObject.toString().getBytes("UTF-8");
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                        return null;
+                    }
+
+                    @Override
+                    public String getBodyContentType() {
+                        return "application/json";
+                    }
+                };
+
+
+                queue.add(putRequest);
             }
-
-
-            JsonObjectRequest putRequest = new JsonObjectRequest(Request.Method.PUT, url, jsonObject,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            // response
-                            Log.d("Response", response.toString());
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            // error
-                            Log.d("Error.Response", error.toString());
-                        }
-                    }
-            ) {
-
-                @Override
-                public Map<String, String> getHeaders() {
-                    Map<String, String> headers = new HashMap<String, String>();
-                    headers.put("Content-Type", "application/json");
-                    headers.put("Accept", "application/json");
-                    return headers;
-                }
-
-                @Override
-                public byte[] getBody() {
-
-                    try {
-                        Log.i("json", jsonObject.toString());
-                        return jsonObject.toString().getBytes("UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-                    return null;
-                }
-
-                @Override
-                public String getBodyContentType() {
-                    return "application/json";
-                }
-            };
-
-
-            queue.add(putRequest);
         }
     }
 
