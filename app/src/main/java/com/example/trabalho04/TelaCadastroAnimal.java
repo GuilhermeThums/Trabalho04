@@ -39,16 +39,15 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 public class TelaCadastroAnimal extends AppCompatActivity {
-    private EditText nomeCadastroAnimal;
-    private EditText pesoCadastroAnimal;
-    private EditText corCadastroAnimal;
-    private EditText dataNascimentoAnimal;
-
     String sexoDoAnimalTexto;
     String especieDoAnimalTexto;
     Date dateNascimentoEnviar;
     String dateNascimentoEnviarString;
     Intent intent;
+    private EditText nomeCadastroAnimal;
+    private EditText pesoCadastroAnimal;
+    private EditText corCadastroAnimal;
+    private EditText dataNascimentoAnimal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,23 +116,24 @@ public class TelaCadastroAnimal extends AppCompatActivity {
         String especie = especieDoAnimalTexto;
 
 //        boolean nomeRegex = Pattern.matches("^[a-zA-Z\\u00C0-\\u00FF]{2,224}$", nomeAnimal);
+
+        boolean regexDouble = Pattern.matches("^[-+]?[0-9]*\\.?[0-9]+$", pesoAnimal);
+
         if (!validarDate(dataNascimento)) {
             Toast.makeText(this, "Data Invalida", Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(pesoAnimal.trim())) {
             Toast.makeText(this, "Campo peso vazio", Toast.LENGTH_SHORT).show();
-        } else {
+        } else if(!regexDouble)
+            Toast.makeText(this, "Campo peso inválido", Toast.LENGTH_SHORT).show();
+        else {
             dateToExpectedString();
             double pesoAnimalDouble = Double.parseDouble(pesoAnimal);
-
             if (TextUtils.isEmpty(nomeAnimal.trim()))
                 Toast.makeText(this, "Campo nome vazio", Toast.LENGTH_SHORT).show();
-
             else if (pesoAnimalDouble <= 0 || pesoAnimalDouble > 122)
                 Toast.makeText(this, "Campo peso inválido", Toast.LENGTH_SHORT).show();
             else if (TextUtils.isEmpty(corAnimal.trim()))
                 Toast.makeText(this, "Campo cor vazio", Toast.LENGTH_SHORT).show();
-//        else if(!nomeRegex)
-//            Toast.makeText(this, "Campo cor inválido", Toast.LENGTH_SHORT).show();
             else if (TextUtils.isEmpty(dataNascimento.trim()))
                 Toast.makeText(this, "Campo data de nascimento inválido!", Toast.LENGTH_SHORT).show();
             else {
