@@ -48,14 +48,14 @@ public class TelaCadastroAnimal extends AppCompatActivity {
     String especieDoAnimalTexto;
     Date dateNascimentoEnviar;
     String dateNascimentoEnviarString;
-
-    Intent intent = new Intent(this, TelaPrincipal.class);
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_cadastro_animal);
 
+        intent = new Intent(this, TelaPrincipal.class);
         nomeCadastroAnimal = findViewById(R.id.edtNomeAnimal);
         pesoCadastroAnimal = findViewById(R.id.edtPesoAnimal);
         corCadastroAnimal = findViewById(R.id.edtCorAnimal);
@@ -83,115 +83,119 @@ public class TelaCadastroAnimal extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-    public void dateToExpectedString(){
+
+    public void dateToExpectedString() {
         SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
         dateNascimentoEnviarString = formatador.format(dateNascimentoEnviar);
     }
 
-    public void botaoCadastrar(View v){
+    public boolean validarDate(String dataNascimento) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            Date strDate = format.parse(dataNascimento);
+            Date atual = new Date();
+            if (strDate.before(atual)) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (ParseException e) {
+            Toast.makeText(this, "Data inválida", Toast.LENGTH_SHORT).show();
+            return false;
+            //handle exception
+        }
+    }
+
+    public void botaoCadastrar(View v) {
         TelaEditarAnimal telaEditarAnimal = new TelaEditarAnimal();
         final String nomeAnimal = nomeCadastroAnimal.getText().toString();
         final String pesoAnimal = pesoCadastroAnimal.getText().toString();
         final String corAnimal = corCadastroAnimal.getText().toString();
         final String dataNascimento = dataNascimentoAnimal.getText().toString();
         stringToDate(dataNascimento);
-        dateToExpectedString();
         String sexo = sexoDoAnimalTexto;
-        String especie =  especieDoAnimalTexto;
-        double pesoAnimalDouble = Double.parseDouble(pesoAnimal);
+        String especie = especieDoAnimalTexto;
 
 //        boolean nomeRegex = Pattern.matches("^[a-zA-Z\\u00C0-\\u00FF]{2,224}$", nomeAnimal);
-
-        if (!TextUtils.isEmpty(dataNascimento)) {
-            try {
-                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                Date strDate = format.parse(dataNascimento);
-                Date atual = new Date();
-                if (strDate.after(atual)) {
-                    Toast.makeText(this, "Data inválida", Toast.LENGTH_SHORT).show();
-                } else {
-                }
-            } catch (ParseException e) {
-                //handle exception
-            }
-        }
-
-        if(TextUtils.isEmpty(nomeAnimal.trim()))
-            Toast.makeText(this, "Campo nome vazio", Toast.LENGTH_SHORT).show();
-//        else if(!nomeRegex)
-//            Toast.makeText(this, "Campo nome inválido (apenas letras)", Toast.LENGTH_SHORT).show();
-        else if(TextUtils.isEmpty(pesoAnimal.trim()))
+        if (!validarDate(dataNascimento)) {
+            Toast.makeText(this, "Data Invalida", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(pesoAnimal.trim())) {
             Toast.makeText(this, "Campo peso vazio", Toast.LENGTH_SHORT).show();
-        else if(pesoAnimalDouble <= 0 || pesoAnimalDouble > 122)
-            Toast.makeText(this, "Campo peso inválido", Toast.LENGTH_SHORT).show();
-        else if(TextUtils.isEmpty(corAnimal.trim()))
-            Toast.makeText(this, "Campo cor vazio", Toast.LENGTH_SHORT).show();
+        } else {
+            dateToExpectedString();
+            double pesoAnimalDouble = Double.parseDouble(pesoAnimal);
+
+            if (TextUtils.isEmpty(nomeAnimal.trim()))
+                Toast.makeText(this, "Campo nome vazio", Toast.LENGTH_SHORT).show();
+
+            else if (pesoAnimalDouble <= 0 || pesoAnimalDouble > 122)
+                Toast.makeText(this, "Campo peso inválido", Toast.LENGTH_SHORT).show();
+            else if (TextUtils.isEmpty(corAnimal.trim()))
+                Toast.makeText(this, "Campo cor vazio", Toast.LENGTH_SHORT).show();
 //        else if(!nomeRegex)
 //            Toast.makeText(this, "Campo cor inválido", Toast.LENGTH_SHORT).show();
-        else if(TextUtils.isEmpty(dataNascimento.trim()))
-            Toast.makeText(this, "Campo data de nascimento inválido!", Toast.LENGTH_SHORT).show();
-        else {
-//            Toast.makeText(this, "Tudo ok!", Toast.LENGTH_SHORT).show();
-            telaEditarAnimal.stringToDate(dataNascimento);
+            else if (TextUtils.isEmpty(dataNascimento.trim()))
+                Toast.makeText(this, "Campo data de nascimento inválido!", Toast.LENGTH_SHORT).show();
+            else {
 
 
-            RequestQueue queue = Volley.newRequestQueue(this);
-            final String url = "http://10.0.2.2:8080/animal/";
+                RequestQueue queue = Volley.newRequestQueue(this);
+                final String url = "http://10.0.2.2:8080/animal/";
 
-            final JSONObject jsonObject = new JSONObject();
-            try {
+                final JSONObject jsonObject = new JSONObject();
+                try {
 
-                jsonObject.put("animalNome", nomeAnimal);
-                jsonObject.put("animalEspecie", especieDoAnimalTexto);
-                jsonObject.put("animalSexo", sexoDoAnimalTexto);
-                jsonObject.put("animalCor", corAnimal);
-                jsonObject.put("animalNascimento", dateNascimentoEnviarString);
-                jsonObject.put("animalPeso", pesoAnimalDouble);
-            } catch (JSONException e) {
-                // handle exception
-            }
+                    jsonObject.put("animalNome", nomeAnimal);
+                    jsonObject.put("animalEspecie", especieDoAnimalTexto);
+                    jsonObject.put("animalSexo", sexoDoAnimalTexto);
+                    jsonObject.put("animalCor", corAnimal);
+                    jsonObject.put("animalNascimento", dateNascimentoEnviarString);
+                    jsonObject.put("animalPeso", pesoAnimalDouble);
+                } catch (JSONException e) {
+                    // handle exception
+                }
 
 
-            JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            // response
-                            Log.d("Response", response.toString());
-                            startActivity(intent);
+                JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                // response
+                                Log.d("Response", response.toString());
+                                startActivity(intent);
 
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                // error
+                                Log.d("Error.Response", error.toString());
+                            }
                         }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            // error
-                            Log.d("Error.Response", error.toString());
-                        }
+                ) {
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        Map<String, String> headers = new HashMap<String, String>();
+                        headers.put("Content-Type", "application/json");
+                        headers.put("Accept", "application/json");
+                        return headers;
                     }
-            ) {
-                @Override
-                public Map<String, String> getHeaders() {
-                    Map<String, String> headers = new HashMap<String, String>();
-                    headers.put("Content-Type", "application/json");
-                    headers.put("Accept", "application/json");
-                    return headers;
-                }
 
-                @Override
-                protected Map<String, String> getParams(){
-                    Map<String, String> params = new HashMap<String, String>();
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<String, String>();
 
 
-
-                    return params;
-                }
-            };
-            queue.add(postRequest);
+                        return params;
+                    }
+                };
+                queue.add(postRequest);
+            }
         }
     }
 
-    public void botaoVoltar(View v){
+    public void botaoVoltar(View v) {
         onBackPressed();
     }
 }
