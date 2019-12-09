@@ -116,30 +116,6 @@
                 android:ems="10"
                 android:inputType="date" />
 
-            <CheckBox
-                android:id="@+id/ckbVacina1Editar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <CheckBox
-                android:id="@+id/ckbVacina2Editar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <CheckBox
-                android:id="@+id/ckbVacina3Editar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <CheckBox
-                android:id="@+id/ckbVacina4Editar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
             <Button
                 android:id="@+id/btnSalvarEditar"
                 android:layout_width="wrap_content"

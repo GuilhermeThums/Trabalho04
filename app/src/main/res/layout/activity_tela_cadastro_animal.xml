@@ -97,26 +97,6 @@
                 android:ems="10"
                 android:inputType="date" />
 
-            <CheckBox
-                android:id="@+id/ckbVacina1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <CheckBox
-                android:id="@+id/ckbVacina2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <CheckBox
-                android:id="@+id/ckbVacina3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <CheckBox
-                android:id="@+id/ckbVacina4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
             <Button
                 android:id="@+id/btnCadastrarAnimal"
                 android:layout_width="wrap_content"

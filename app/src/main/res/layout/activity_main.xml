@@ -63,7 +63,7 @@
         android:id="@+id/txvNomePetShop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="76dp"
+        android:layout_marginStart="68dp"
         android:layout_marginTop="44dp"
         android:text="@string/prime_dog"
         app:layout_constraintStart_toStartOf="parent"
