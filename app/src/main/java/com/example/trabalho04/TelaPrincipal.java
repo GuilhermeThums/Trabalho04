@@ -25,7 +25,7 @@ public class TelaPrincipal extends AppCompatActivity {
 
     private static final String URL = "http://10.0.2.2:8080/animal";
     final int duracao = Toast.LENGTH_LONG;
-    ArrayList<Animal> Animals = new ArrayList<Animal>();
+    ArrayList<Animal> animals = new ArrayList<Animal>();
     Spinner spinnerAnimal;
     ArrayAdapter<Animal> spinnerArrayAdapter;
     Integer valueID;
@@ -37,7 +37,7 @@ public class TelaPrincipal extends AppCompatActivity {
         setContentView(R.layout.activity_tela_principal);
         this.listaAnimal();
         spinnerAnimal = findViewById(R.id.spnAnimal);
-        spinnerArrayAdapter = new ArrayAdapter<Animal>(this, android.R.layout.simple_spinner_item, Animals);
+        spinnerArrayAdapter = new ArrayAdapter<Animal>(this, android.R.layout.simple_spinner_item, animals);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
         spinnerAnimal.setAdapter(spinnerArrayAdapter);
 
@@ -114,7 +114,7 @@ public class TelaPrincipal extends AppCompatActivity {
                                         jsonReader.skipValue(); // Skip values of other keys
                                     }
                                 }
-                                Animals.add(new Animal(valueID, value));
+                                animals.add(new Animal(valueID, value));
 
                                 jsonReader.endObject();
                             }
