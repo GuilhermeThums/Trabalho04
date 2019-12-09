@@ -13,10 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".TelaEditarAnimal"></activity>
+        <activity android:name=".TelaDeletarAnimal"></activity>
+        <activity android:name=".TelaEditarAnimal" />
         <activity android:name=".TelaCadastroAnimal" />
         <activity android:name=".TelaPrincipal" />
-        <activity android:name=".TelaCadastroCliente" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

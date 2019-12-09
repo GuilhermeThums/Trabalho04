@@ -22,23 +22,20 @@ public class TelaCadastroAnimal extends AppCompatActivity {
     private EditText pesoCadastroAnimal;
     private EditText corCadastroAnimal;
     private EditText dataNascimentoAnimal;
-
     private CheckBox vacina1;
     private CheckBox vacina2;
     private CheckBox vacina3;
     private CheckBox vacina4;
 
-    String sexoDoAnimalTexto;
-    String especieDoAnimalTexto;
-
     String vacinaV8 = "Vacina v8";
     String vacinaV10 = "Vacina v10";
     String vacinaV12 = "Vacina v12";
-    String vacinaRabica = "Vacina anti raiva";
+    String vacinaRabica = "Vacina anti-rábica";
     String vacinaV3 = "Vacina v3";
     String vacinaV4 = "Vacina v4";
     String vacinaV5 = "Vacina v5";
-
+    String sexoDoAnimalTexto;
+    String especieDoAnimalTexto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,24 +46,23 @@ public class TelaCadastroAnimal extends AppCompatActivity {
         pesoCadastroAnimal = findViewById(R.id.edtPesoAnimal);
         corCadastroAnimal = findViewById(R.id.edtCorAnimal);
         dataNascimentoAnimal = findViewById(R.id.edtDataNascimentoAnimal);
-
         vacina1 = findViewById(R.id.ckbVacina1);
         vacina2 = findViewById(R.id.ckbVacina2);
         vacina3 = findViewById(R.id.ckbVacina3);
         vacina4 = findViewById(R.id.ckbVacina4);
-        
+        //Define spinner sexo do animal
         String[] sexoAnimal = getResources().getStringArray(R.array.arraySexoAnimal);
         Spinner spinnerSexoAnimal = findViewById(R.id.spnSexoAnimal);
         ArrayAdapter<String> sexoAnimalAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, sexoAnimal);
         spinnerSexoAnimal.setAdapter(sexoAnimalAdapter);
         sexoDoAnimalTexto = spinnerSexoAnimal.getSelectedItem().toString();
-
+        //Define spinner espécie do animal
         String[] especieAnimal = getResources().getStringArray(R.array.arrayEspecie);
         Spinner spinnerEspecieAnimal = findViewById(R.id.spnEspecieAnimal);
         ArrayAdapter<String> especieAnimalAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, especieAnimal);
         spinnerEspecieAnimal.setAdapter(especieAnimalAdapter);
         especieDoAnimalTexto = spinnerEspecieAnimal.getSelectedItem().toString();
-
+        //Muda o conteúdo da CheckBox quando muda spinnerEspecieAnimal
         spinnerEspecieAnimal.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -98,13 +94,10 @@ public class TelaCadastroAnimal extends AppCompatActivity {
                         vacina4.toggle();
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
-
     }
 
     public void botaoCadastrar(View v){
@@ -114,7 +107,6 @@ public class TelaCadastroAnimal extends AppCompatActivity {
         String dataNascimento = dataNascimentoAnimal.getText().toString();
         String sexo = sexoDoAnimalTexto;
         String especie =  especieDoAnimalTexto;
-
 
 
         if(vacina1.isChecked()){
@@ -142,12 +134,9 @@ public class TelaCadastroAnimal extends AppCompatActivity {
             Toast.makeText(this, "Tudo ok!", Toast.LENGTH_SHORT).show();
             onBackPressed();
         }
-
-
     }
 
     public void botaoVoltar(View v){
         onBackPressed();
     }
-
 }

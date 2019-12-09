@@ -24,11 +24,11 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/txvIdAnimal"
+                android:id="@+id/txvIdAnimalEditar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="ID Animal" />
+                android:text="@string/id_animal" />
 
             <TextView
                 android:id="@+id/txvNomeAnimalEditar"
@@ -146,7 +146,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="btnSalvar"
-                android:text="@string/salvar" />
+                android:text="@string/salvarAnimal" />
+
+            <Button
+                android:id="@+id/btnExcluirAnimal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="deletarAnimal"
+                android:text="@string/excluir_animal" />
 
             <Button
                 android:id="@+id/btnVoltarEditar"
