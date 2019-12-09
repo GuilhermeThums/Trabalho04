@@ -31,10 +31,6 @@
     <string name="sim">Sim</string>
     <string name="tem_certeza_que_deseja_deletar">Tem certeza que deseja deletar?</string>
 
-    <string-array name="arraySexoHumano">
-        <item>Masculino</item>
-        <item>Feminino</item>
-    </string-array>
 
     <string-array name="arraySexoAnimal">
         <item>Macho</item>

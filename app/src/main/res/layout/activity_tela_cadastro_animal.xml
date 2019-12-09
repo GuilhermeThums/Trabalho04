@@ -90,12 +90,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/data_de_nascimento" />
 
-            <Button
-                android:id="@+id/btnSelecionarData"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/selecionar_data" />
-
             <EditText
                 android:id="@+id/edtDataNascimentoAnimal"
                 android:layout_width="match_parent"
