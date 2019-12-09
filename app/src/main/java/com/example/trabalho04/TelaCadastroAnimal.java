@@ -3,8 +3,11 @@ package com.example.trabalho04;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,10 +18,24 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 public class TelaCadastroAnimal extends AppCompatActivity {
@@ -54,6 +71,7 @@ public class TelaCadastroAnimal extends AppCompatActivity {
         vacina2 = findViewById(R.id.ckbVacina2);
         vacina3 = findViewById(R.id.ckbVacina3);
         vacina4 = findViewById(R.id.ckbVacina4);
+
         //Define spinner sexo do animal
         String[] sexoAnimal = getResources().getStringArray(R.array.arraySexoAnimal);
         Spinner spinnerSexoAnimal = findViewById(R.id.spnSexoAnimal);
@@ -105,10 +123,11 @@ public class TelaCadastroAnimal extends AppCompatActivity {
     }
 
     public void botaoCadastrar(View v){
-        String nomeAnimal = nomeCadastroAnimal.getText().toString();
-        String pesoAnimal = pesoCadastroAnimal.getText().toString();
-        String corAnimal = corCadastroAnimal.getText().toString();
-        String dataNascimento = dataNascimentoAnimal.getText().toString();
+        TelaEditarAnimal telaEditarAnimal = new TelaEditarAnimal();
+        final String nomeAnimal = nomeCadastroAnimal.getText().toString();
+        final String pesoAnimal = pesoCadastroAnimal.getText().toString();
+        final String corAnimal = corCadastroAnimal.getText().toString();
+        final String dataNascimento = dataNascimentoAnimal.getText().toString();
         String sexo = sexoDoAnimalTexto;
         String especie =  especieDoAnimalTexto;
         double pesoAnimalDouble = Double.parseDouble(pesoAnimal);
@@ -157,8 +176,44 @@ public class TelaCadastroAnimal extends AppCompatActivity {
         else if(TextUtils.isEmpty(dataNascimento.trim()))
             Toast.makeText(this, "Campo data de nascimento inválido!", Toast.LENGTH_SHORT).show();
         else {
-            Toast.makeText(this, "Tudo ok!", Toast.LENGTH_SHORT).show();
-            onBackPressed();
+//            Toast.makeText(this, "Tudo ok!", Toast.LENGTH_SHORT).show();
+            telaEditarAnimal.stringToDate(dataNascimento);
+
+
+            RequestQueue queue = Volley.newRequestQueue(this);
+            final String url = "http://10.0.2.2:8080/animal/";
+            StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Log.d("Response", response.toString());
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.d("Error.Response", error.toString());
+                        }
+                    }
+            ){
+                @Override
+                protected Map<String, String> getParams(){
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("animalNome", nomeAnimal);
+                    params.put("animalEspecie", especieDoAnimalTexto);
+                    params.put("animalSexo", sexoDoAnimalTexto);
+                    params.put("animalCor", corAnimal);
+                    params.put("animalNascimento", dataNascimento);
+                    params.put("animalPeso", pesoAnimal);
+
+                    return params;
+                }
+            };
+            queue.add(postRequest);
+
+
+            Intent intent = new Intent(this, TelaPrincipal.class);
+            startActivity(intent);
         }
     }
 

@@ -64,6 +64,8 @@ public class TelaPrincipal extends AppCompatActivity {
         editor.putString("lembrar", "falso");
         editor.apply();
         finish();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     //Muda a função de voltar do Android para salvar o arquivo de preferências como "falso" e voltar pra tela de login
