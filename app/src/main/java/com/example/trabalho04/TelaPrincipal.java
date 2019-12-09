@@ -124,6 +124,8 @@ public class TelaPrincipal extends AppCompatActivity {
                                 }
                             });
                         } else {
+                            Toast noItem = Toast.makeText(contexto, "Erro ao conectar com a API", duracao);
+                            noItem.show();
                             // Error handling code goes here
                         }
                         myConnection.disconnect();
