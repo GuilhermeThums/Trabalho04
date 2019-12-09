@@ -57,7 +57,8 @@ public class TelaCadastroAnimal extends AppCompatActivity {
     String vacinaV5 = "Vacina v5";
     String sexoDoAnimalTexto;
     String especieDoAnimalTexto;
-
+    Date dateNascimentoEnviar;
+    String dateNascimentoEnviarString;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,12 +123,27 @@ public class TelaCadastroAnimal extends AppCompatActivity {
         });
     }
 
+    public void stringToDate(String animalDate) {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            dateNascimentoEnviar = format.parse(animalDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+    public void dateToExpectedString(){
+        SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
+        dateNascimentoEnviarString = formatador.format(dateNascimentoEnviar);
+    }
+
     public void botaoCadastrar(View v){
         TelaEditarAnimal telaEditarAnimal = new TelaEditarAnimal();
         final String nomeAnimal = nomeCadastroAnimal.getText().toString();
         final String pesoAnimal = pesoCadastroAnimal.getText().toString();
         final String corAnimal = corCadastroAnimal.getText().toString();
         final String dataNascimento = dataNascimentoAnimal.getText().toString();
+        stringToDate(dataNascimento);
+        dateToExpectedString();
         String sexo = sexoDoAnimalTexto;
         String especie =  especieDoAnimalTexto;
         double pesoAnimalDouble = Double.parseDouble(pesoAnimal);
@@ -182,29 +198,50 @@ public class TelaCadastroAnimal extends AppCompatActivity {
 
             RequestQueue queue = Volley.newRequestQueue(this);
             final String url = "http://10.0.2.2:8080/animal/";
-            StringRequest postRequest = new StringRequest(Request.Method.POST, url,
-                    new Response.Listener<String>() {
+
+            final JSONObject jsonObject = new JSONObject();
+            try {
+
+                jsonObject.put("animalNome", nomeAnimal);
+                jsonObject.put("animalEspecie", especieDoAnimalTexto);
+                jsonObject.put("animalSexo", sexoDoAnimalTexto);
+                jsonObject.put("animalCor", corAnimal);
+                jsonObject.put("animalNascimento", dateNascimentoEnviarString);
+                jsonObject.put("animalPeso", pesoAnimalDouble);
+            } catch (JSONException e) {
+                // handle exception
+            }
+
+
+            JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject,
+                    new Response.Listener<JSONObject>() {
                         @Override
-                        public void onResponse(String response) {
+                        public void onResponse(JSONObject response) {
+                            // response
                             Log.d("Response", response.toString());
                         }
                     },
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
+                            // error
                             Log.d("Error.Response", error.toString());
                         }
                     }
-            ){
+            ) {
+                @Override
+                public Map<String, String> getHeaders() {
+                    Map<String, String> headers = new HashMap<String, String>();
+                    headers.put("Content-Type", "application/json");
+                    headers.put("Accept", "application/json");
+                    return headers;
+                }
+
                 @Override
                 protected Map<String, String> getParams(){
                     Map<String, String> params = new HashMap<String, String>();
-                    params.put("animalNome", nomeAnimal);
-                    params.put("animalEspecie", especieDoAnimalTexto);
-                    params.put("animalSexo", sexoDoAnimalTexto);
-                    params.put("animalCor", corAnimal);
-                    params.put("animalNascimento", dataNascimento);
-                    params.put("animalPeso", pesoAnimal);
+
+
 
                     return params;
                 }
