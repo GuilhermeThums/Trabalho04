@@ -14,6 +14,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
 import java.io.DataOutputStream;
@@ -190,7 +192,7 @@ public class TelaEditarAnimal extends AppCompatActivity {
 //            String result = "";
 //
 //            try {
-//                // 1. create HttpClient
+                // 1. create HttpClient
 //                HttpClient httpclient = new DefaultHttpClient();
 //
 //                // 2. make POST request to the given URL
